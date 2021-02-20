@@ -55,7 +55,7 @@ def plot_heatmap(df, ax, extent, bins=3000, color="viridis", sigma=1, alpha=1):
     im = cm(heatmap)
     if isinstance(color, tuple):
         im[heatmap != np.nan] = color
-    else:
+    elif not isinstance(color, str):
         raise Exception("Invalid color: {}".format(color))
     im[:, :, 3] = opacity(heatmap, b=alpha)
     ax.imshow(np.transpose(im, (1, 0, 2)), extent=extent, origin='lower')

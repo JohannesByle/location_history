@@ -35,17 +35,12 @@ def create_map_from_filenames(filenames, colors, edges, zoom=12, dpi=600, t=None
             dfs.append(pd.concat([load_json(n, edges) for n in filename]))
         else:
             raise Exception("Unknown filename: {}".format(filename))
+    if isinstance(colors, str):
+        colors = [get_cmap(colors)(n / (len(dfs) - 1 if len(dfs) > 1 else 1)) for n in range(len(dfs))]
+    elif isinstance(colors, tuple):
+        colors = [colors] * len(dfs)
     for n in tqdm(range(len(dfs)), desc="Generating map"):
-        if isinstance(colors, list):
-            color = colors[n]
-        elif isinstance(colors, tuple):
-            color = colors
-        elif isinstance(colors, str):
-            cm = get_cmap(colors)
-            color = cm(n / (len(dfs) - 1 if len(dfs) > 1 else 1))
-        else:
-            raise Exception("Unknown colors: {}".format(colors))
-        plot_heatmap(dfs[n], ax, extent, bins=bins, sigma=sigma, color=color, alpha=alpha)
+        plot_heatmap(dfs[n], ax, extent, bins=bins, sigma=sigma, color=colors[n], alpha=alpha)
     saved = False
     n = 0
     while not saved:
