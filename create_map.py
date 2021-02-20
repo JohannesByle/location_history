@@ -13,7 +13,8 @@ def create_map_from_filenames(filenames, colors, edges, zoom=12, dpi=600, t=None
     """
     :param filenames: List of filenames, either list of strings or list of list of strings
     :param colors: Colors for each heatmap, either a list of matplotlib colormap strings, a list of tuples, a tuple, or
-    a matplotlib colormap string
+    a matplotlib colormap string. A list of colormap options can be found here
+    https://matplotlib.org/stable/gallery/color/colormap_reference.html
     :param edges: Edges of map, must have form {"north": float, "south": float,"east": float,"west": float}
     :param zoom: Zoom level of map, default 12
     :param dpi: Dots-per-inch, default 6000
@@ -21,7 +22,6 @@ def create_map_from_filenames(filenames, colors, edges, zoom=12, dpi=600, t=None
     :param bins: Number of bins in heatmap, i.e. how detailed the heatmap is, default 3000
     :param sigma: How much smoothing is applied to the heatmap, default is 1
     :param alpha: Transparency of each heatmap layer, default 1
-    :return:w
     """
     if isinstance(colors, list):
         assert len(colors) == len(filenames)
