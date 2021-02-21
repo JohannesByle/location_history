@@ -35,6 +35,7 @@ def get_base_map(edges, zoom=12, dpi=600, t=None):
 def load_json(filename, edges):
     with open(filename) as f:
         df = pd.DataFrame(json.load(f)["locations"])
+    df = df[["latitudeE7", "longitudeE7"]]
     df["latitudeE7"] = df["latitudeE7"].astype(int) / 10 ** 7
     df["longitudeE7"] = df["longitudeE7"].astype(int) / 10 ** 7
     df = df[df["latitudeE7"] <= edges["north"]]
